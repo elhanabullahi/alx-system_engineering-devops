@@ -1,0 +1,12 @@
+#!/bin/bash
+NGINX_SITES_ENABLED="/etc/nginx/sites-enabled"
+if [ ! -d "$NGINX_SITES_ENABLED" ]; then
+    exit 
+1fi
+cd "$NGINX_SITES_ENABLED" || exit 1
+if [ -f "default" ]; then
+    rm default
+fi
+ln -s /etc/nginx/sites-available/default default
+service nginx restart
+echo "Nginx configuration updated. Listening on port 80."
